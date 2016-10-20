@@ -23,7 +23,7 @@ module.exports = {
              * Replace this by actual data for the api.
              */
             
-            return new Promise((reject, resolve) => {
+            return new Promise((resolve, reject) => {
                 Mockgen().responses({
                     path: '<%=path%>',
                     operation: '<%=operation.method%>',
