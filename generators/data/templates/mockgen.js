@@ -2,7 +2,7 @@
 const Swagmock = require('swagmock');
 const Path = require('path');
 const apiPath = Path.resolve(__dirname, '<%=apiConfigPath.replace(/\\/g,'/')%>');
-const mockgen;
+let mockgen;
 
 module.exports = function () {
     /**
