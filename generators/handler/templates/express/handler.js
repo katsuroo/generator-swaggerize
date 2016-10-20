@@ -22,15 +22,13 @@ module.exports = {
          */
         const status = <%=statusStr%>;
         const provider = dataProvider['<%=operation.method%>']['<%=resp%>'];
-        provider(req, res, function (err, data) {
-            if (err) {
-                next(err);
-                return;
-            }
-            res.status(status).send(data && data.responses);
-        });<%} else {%>
+        
+        provider(req, res)
+            .then(data => res.status(status).send(data && data.responses))
+            .catch(err => next(err));<%} else {%>
         const status = 501;
         const data = {};
+            
         res.status(status).send(data);
         <%}%>
     }<%if (i < operations.length - 1) {%>,

@@ -13,6 +13,7 @@ const Parser = require('swagger-parser');
 Test('<%=path%>', function (t) {
     const apiPath = Path.resolve(__dirname, '<%=apiPathRel.replace(/\\/g,'/')%>');
     const App = Express();
+    
     App.use(BodyParser.json());
     App.use(BodyParser.urlencoded({
         extended: true
@@ -21,6 +22,7 @@ Test('<%=path%>', function (t) {
         api: apiPath,
         handlers: Path.resolve(__dirname, '<%=handlerDir.replace(/\\/g,'/')%>')
     }));
+    
     Parser.validate(apiPath, function (err, api) {
         t.error(err, 'No parse error');
         t.ok(api, 'Valid swagger api');
@@ -37,8 +39,11 @@ Test('<%=path%>', function (t) {
             Mockgen().requests({
                 path: '<%=path%>',
                 operation: '<%=operation.method%>'
-            }, function (err, mock) {
+            }, callback)
+            
+            function callback(err, mock) {
                 let request;
+                
                 t.error(err);
                 t.ok(mock);
                 t.ok(mock.request);
@@ -61,6 +66,7 @@ Test('<%=path%>', function (t) {
                         request = request.set(headerName, mock.request.headers[headerName]);
                     });
                 }
+                
                 request.end(function (err, res) {
                     t.error(err, 'No error');
                     <% if (operation.response) {
@@ -76,7 +82,7 @@ Test('<%=path%>', function (t) {
                     t.error(validate.errors, 'No validation errors');
                     <%}%>t.end();
                 });
-            });
+            };
         });<%})%>
     });
 });
