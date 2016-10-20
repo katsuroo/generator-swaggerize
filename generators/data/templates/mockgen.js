@@ -1,13 +1,12 @@
-'use strict';
-const Swagmock = require('swagmock');
-const Path = require('path');
-const apiPath = Path.resolve(__dirname, '<%=apiConfigPath.replace(/\\/g,'/')%>');
-let mockgen;
+const swagmock = require('swagmock');
+const path = require('path');
 
-module.exports = function () {
-    /**
-     * Cached mock generator
-     */
-    mockgen = mockgen || Swagmock(apiPath);
-    return mockgen;
+const apiPath = path.resolve(__dirname, '<%=apiConfigPath.replace(/\\/g,'/')%>');
+const mockgen = swagmock(apiPath);
+
+module.exports = function mockGenerator() {
+  /**
+   * Cached mock generator
+   */
+  return mockgen;
 };
