@@ -92,7 +92,7 @@ module.exports = Generators.Base.extend({
                     const pathStr = path.replace(/^\/|\/$/g, '');
                     const testPath = Path.join(self.testPath, pathStr + '.js');
                     const pathObj = paths[path];
-                    const route;
+                    let route;
                     //Set the genFilePath path
                     self.genFilePath = self.destinationPath(testPath);
                     //Generate the route template obj.
