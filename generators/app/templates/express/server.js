@@ -1,29 +1,31 @@
 'use strict';
 
-var Http = require('http');
-var Express = require('express');
-var BodyParser = require('body-parser');
-var Swaggerize = require('swaggerize-express');
-var Path = require('path');
+const app        = require('express')();
+const BodyParser = require('body-parser');
+const Swaggerize = require('swaggerize-express');
+const Path       = require('path');
+const os         = require('os');
 
-var App = Express();
+const port = 8000;
+const host = os.hostname();
 
-var Server = Http.createServer(App);
+app.use(BodyParser.json());
 
-App.use(BodyParser.json());
-App.use(BodyParser.urlencoded({
+app.use(BodyParser.urlencoded({
     extended: true
 }));
 
-App.use(Swaggerize({
-    api: Path.resolve('<%=apiPathRel.replace(/\\/g,'/')%>'),
-    handlers: Path.resolve('<%=handlerPath.replace(/\\/g,'/')%>')<%if (security) {%>,
-    security: Path.resolve('<%=securityPath.replace(/\\/g,'/')%>')<%}%>
-}));
+app.use(Swaggerize({
+        api     : Path.resolve('<%=apiPathRel.replace(/\\/g,' / ')%>'),
+        handlers: Path.resolve('<%=handlerPath.replace(/\\/g,' / ')%>') < %if (security) {%>,
+            security: Path.resolve('<%=securityPath.replace(/\\/g,' / ')%>') < %
+        } % >
+}))
+;
 
-Server.listen(8000, function () {
-    App.swagger.api.host = this.address().address + ':' + this.address().port;
+app.listen(port, function () {
+    app.swagger.api.host = os.hostname() + ':' + port;
     /* eslint-disable no-console */
-    console.log('App running on %s:%d', this.address().address, this.address().port);
+    console.log('App running on %s:%d', host, port);
     /* eslint-disable no-console */
 });

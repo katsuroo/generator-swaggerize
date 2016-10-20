@@ -1,5 +1,5 @@
 'use strict';
-var dataProvider = require('<%=dataPath.replace(/\\/g,'/')%>');
+const dataProvider = require('<%=dataPath.replace(/\\/g,'/')%>');
 /**
  * Operations on <%=path%>
  */
@@ -14,14 +14,14 @@ module.exports = {
      */
     <%=operation.method%>: function <%=operation.name%>(req, res, next) {
         <%if (operation.responses.length > 0) {
-            var resp = operation.responses[0];
-            var statusStr = (resp === 'default') ? 200 : resp;
+            const resp = operation.responses[0];
+            const statusStr = (resp === 'default') ? 200 : resp;
         %>/**
          * Get the data for response <%=resp%>
          * For response `default` status 200 is used.
          */
-        var status = <%=statusStr%>;
-        var provider = dataProvider['<%=operation.method%>']['<%=resp%>'];
+        const status = <%=statusStr%>;
+        const provider = dataProvider['<%=operation.method%>']['<%=resp%>'];
         provider(req, res, function (err, data) {
             if (err) {
                 next(err);
@@ -29,8 +29,8 @@ module.exports = {
             }
             res.status(status).send(data && data.responses);
         });<%} else {%>
-        var status = 501;
-        var data = {};
+        const status = 501;
+        const data = {};
         res.status(status).send(data);
         <%}%>
     }<%if (i < operations.length - 1) {%>,

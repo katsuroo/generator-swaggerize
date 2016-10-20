@@ -1,10 +1,10 @@
 'use strict';
-var Generators = require('yeoman-generator');
-var Path = require('path');
-var Util = require('../../lib/util');
-var Frameworks = Util.Frameworks;
-var RouteGen = require('../../lib/routegen');
-var Prompt = require('../prompt');
+const Generators = require('yeoman-generator');
+const Path = require('path');
+const Util = require('../../lib/util');
+const Frameworks = Util.Frameworks;
+const RouteGen = require('../../lib/routegen');
+const Prompt = require('../prompt');
 
 module.exports = Generators.Base.extend({
     constructor: function () {
@@ -24,7 +24,7 @@ module.exports = Generators.Base.extend({
     initializing: {
         //Validate the apiPath option in the beginning itself. Prompt for user input if the option is an invalid path.
         apiPath: function () {
-            var done = this.async();
+            const done = this.async();
             this.apiPath = this.options.apiPath;
             this.api = this.options.api;
             this.refApi = this.options.refApi;
@@ -40,9 +40,9 @@ module.exports = Generators.Base.extend({
         }
     },
     prompting: function () {
-        var done = this.async();
+        const done = this.async();
         this.prompt(Prompt('test', this), function (answers) {
-            var self = this;
+            const self = this;
             Object.keys(answers).forEach(function (prop) {
                 if (answers[prop] !== null && answers[prop] !== undefined) {
                     self[prop] = answers[prop];
@@ -60,7 +60,7 @@ module.exports = Generators.Base.extend({
         }.bind(this));
     },
     configuring: function () {
-        var done = this.async();
+        const done = this.async();
         if (Frameworks.indexOf(this.framework) === -1) {
             done(new Error('Invalid framework ' + this.framework + '. Framework should be one of these : ' + Frameworks));
         } else {
@@ -85,14 +85,14 @@ module.exports = Generators.Base.extend({
             });
         },
         tests: function () {
-            var self = this;
-            var paths = this.api.paths;
+            const self = this;
+            const paths = this.api.paths;
             if (paths) {
                 Object.keys(paths).forEach(function (path) {
-                    var pathStr = path.replace(/^\/|\/$/g, '');
-                    var testPath = Path.join(self.testPath, pathStr + '.js');
-                    var pathObj = paths[path];
-                    var route;
+                    const pathStr = path.replace(/^\/|\/$/g, '');
+                    const testPath = Path.join(self.testPath, pathStr + '.js');
+                    const pathObj = paths[path];
+                    const route;
                     //Set the genFilePath path
                     self.genFilePath = self.destinationPath(testPath);
                     //Generate the route template obj.

@@ -1,18 +1,18 @@
 'use strict';
-var Test = require('tape');
-var Express = require('express');
-var BodyParser = require('body-parser');
-var Swaggerize = require('swaggerize-express');
-var Path = require('path');
-var Request = require('supertest');
-var Mockgen = require('<%=mockgenPath.replace(/\\/g,'/')%>');
-var Parser = require('swagger-parser');
+const Test = require('tape');
+const Express = require('express');
+const BodyParser = require('body-parser');
+const Swaggerize = require('swaggerize-express');
+const Path = require('path');
+const Request = require('supertest');
+const Mockgen = require('<%=mockgenPath.replace(/\\/g,'/')%>');
+const Parser = require('swagger-parser');
 /**
  * Test for <%=path%>
  */
 Test('<%=path%>', function (t) {
-    var apiPath = Path.resolve(__dirname, '<%=apiPathRel.replace(/\\/g,'/')%>');
-    var App = Express();
+    const apiPath = Path.resolve(__dirname, '<%=apiPathRel.replace(/\\/g,'/')%>');
+    const App = Express();
     App.use(BodyParser.json());
     App.use(BodyParser.urlencoded({
         extended: true
@@ -38,7 +38,7 @@ Test('<%=path%>', function (t) {
                 path: '<%=path%>',
                 operation: '<%=operation.method%>'
             }, function (err, mock) {
-                var request;
+                let request;
                 t.error(err);
                 t.ok(mock);
                 t.ok(mock.request);
