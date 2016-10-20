@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krakenjs/generator-swaggerize.git"
+    "url": "https://github.com/katsuroo/generator-swaggerize"
   },
   "keywords": [
     "yeoman-generator",
